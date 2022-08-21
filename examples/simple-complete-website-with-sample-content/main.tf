@@ -58,8 +58,8 @@ output "cloudfront_domain_name" {
   value = module.static-website-s3-cloudfront-acm.cloudfront_domain_name
 }
 
-output "cloudfront_dist_id" {
-  value = module.static-website-s3-cloudfront-acm.cloudfront_dist_id
+output "aws_cloudfront_distribution_id" {
+  value = module.static-website-s3-cloudfront-acm.aws_cloudfront_distribution_id
 }
 
 output "s3_bucket_arn" {
