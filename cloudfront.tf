@@ -16,7 +16,7 @@ resource "aws_cloudfront_distribution" "this" {
 
   enabled             = true
   is_ipv6_enabled     = true
-  default_root_object = var.default_root_object
+  default_root_object = var.cloudfront_default_root_object
 
   default_cache_behavior {
     allowed_methods = [
@@ -47,7 +47,7 @@ resource "aws_cloudfront_distribution" "this" {
     max_ttl     = var.cloudfront_max_ttl
   }
 
-  price_class = var.price_class
+  price_class = var.cloudfront_price_class
 
   restrictions {
     geo_restriction {
@@ -68,7 +68,7 @@ resource "aws_cloudfront_distribution" "this" {
     error_code            = 403
     response_code         = 200
     error_caching_min_ttl = 0
-    response_page_path    = "/${var.default_root_object}"
+    response_page_path    = "/${var.cloudfront_default_root_object}"
   }
 
   wait_for_deployment = false

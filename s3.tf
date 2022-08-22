@@ -21,7 +21,7 @@ data "aws_iam_policy_document" "this" {
 }
 
 resource "aws_s3_bucket" "this" {
-  bucket = var.domain_name
+  bucket = local.s3_bucket_name
 }
 
 resource "aws_s3_bucket_policy" "this" {
@@ -35,7 +35,7 @@ resource "aws_s3_bucket_acl" "this" {
 }
 
 resource "aws_s3_bucket_versioning" "this" {
-  count  = var.aws_s3_bucket_versioning == true ? 1 : 0
+  count  = var.s3_bucket_versioning == true ? 1 : 0
   bucket = aws_s3_bucket.this.id
   versioning_configuration {
     status = "Enabled"
@@ -43,7 +43,7 @@ resource "aws_s3_bucket_versioning" "this" {
 }
 
 resource "aws_s3_bucket_public_access_block" "this" {
-  count                   = var.public_access_block == true ? 1 : 0
+  count                   = var.s3_bucket_public_access_block == true ? 1 : 0
   bucket                  = aws_s3_bucket.this.id
   block_public_acls       = true
   block_public_policy     = true

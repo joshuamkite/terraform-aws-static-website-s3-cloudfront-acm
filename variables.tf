@@ -3,7 +3,7 @@ variable "domain_name" {
   description = "Domain name for website, used for all resources"
 }
 
-variable "price_class" {
+variable "cloudfront_price_class" {
   type        = string
   default     = "PriceClass_100" # Only US,Canada,Europe
   description = "CloudFront distribution price class"
@@ -38,22 +38,28 @@ variable "cloudfront_minimum_protocol_version" {
 variable "deploy_sample_content" {
   type        = bool
   default     = false
-  description = "Whether or not to deploy sample content"
+  description = "Deploy sample content to show website working?"
 }
 
-variable "default_root_object" {
+variable "cloudfront_default_root_object" {
   type        = string
   description = "Default root object for cloudfront"
   default     = "index.html"
 }
 
-variable "aws_s3_bucket_versioning" {
+variable "s3_bucket_custom_name" {
+  type        = string
+  description = "Any non-empty string here will replace default name of bucket `var.domain_name`"
+  default     = ""
+}
+
+variable "s3_bucket_versioning" {
   type        = bool
   description = "Apply versioning to S3 bucket?"
   default     = false
 }
 
-variable "public_access_block" {
+variable "s3_bucket_public_access_block" {
   type        = bool
   description = "Apply public access block to S3 bucket?"
   default     = true
