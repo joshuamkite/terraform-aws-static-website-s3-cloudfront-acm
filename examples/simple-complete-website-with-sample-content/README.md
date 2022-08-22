@@ -1,6 +1,6 @@
 # simple-complete-website-with-sample-content
 
-This deploys a complete example website with sample content.
+This deploys a complete example website with sample content. Non specific-regional-mandated resources are deployed to eu-west-1
 
 ## Requirements
 

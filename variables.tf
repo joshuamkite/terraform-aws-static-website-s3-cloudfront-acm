@@ -50,7 +50,7 @@ variable "default_root_object" {
 variable "aws_s3_bucket_versioning" {
   type        = bool
   description = "Apply versioning to S3 bucket?"
-  default     = true
+  default     = false
 }
 
 variable "public_access_block" {

@@ -1,8 +1,8 @@
 resource "aws_cloudfront_distribution" "this" {
   provider = aws.us-east-1
   origin {
-    domain_name = "${var.domain_name}.s3.amazonaws.com"
-    origin_id   = "s3-cloudfront"
+    domain_name = aws_s3_bucket.this.bucket_regional_domain_name
+    origin_id   = local.s3_origin_id
 
     s3_origin_config {
       origin_access_identity = aws_cloudfront_origin_access_identity.this.cloudfront_access_identity_path
@@ -29,7 +29,7 @@ resource "aws_cloudfront_distribution" "this" {
       "HEAD",
     ]
 
-    target_origin_id = "s3-cloudfront"
+    target_origin_id = local.s3_origin_id
 
     forwarded_values {
       query_string = false
@@ -72,6 +72,21 @@ resource "aws_cloudfront_distribution" "this" {
   }
 
   wait_for_deployment = false
+
+  depends_on = [
+    # Hope to avoid errors like
+    #
+    # │ Error: error creating CloudFront Distribution: InvalidViewerCertificate: The specified SSL certificate doesn't exist, isn't in us-east-1 region, isn't valid, or doesn't include a valid certificate chain.
+    # │       status code: 400, request id: 281f6901-fe5b-472b-a357-d918449f7b60
+    # │ 
+    # │   with module.static-website-s3-cloudfront-acm.aws_cloudfront_distribution.this,
+    # │   on ../../cloudfront.tf line 1, in resource "aws_cloudfront_distribution" "this":
+    # │    1: resource "aws_cloudfront_distribution" "this" {
+
+    aws_acm_certificate.this,
+    aws_acm_certificate_validation.this
+  ]
+
 }
 
 resource "aws_cloudfront_origin_access_identity" "this" {
