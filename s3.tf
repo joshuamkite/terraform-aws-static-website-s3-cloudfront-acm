@@ -1,21 +1,19 @@
 
 data "aws_iam_policy_document" "this" {
   statement {
+    sid       = "AllowCloudFrontServicePrincipal"
+    actions   = ["s3:GetObject"]
+    resources = ["${aws_s3_bucket.this.arn}/*"]
 
-    actions = [
-      "s3:GetObject",
-    ]
-
-    resources = [
-      "${aws_s3_bucket.this.arn}/*",
-    ]
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceArn"
+      values   = [aws_cloudfront_distribution.this.arn]
+    }
 
     principals {
-      type = "AWS"
-
-      identifiers = [
-        aws_cloudfront_origin_access_identity.this.iam_arn,
-      ]
+      type        = "Service"
+      identifiers = ["cloudfront.amazonaws.com"]
     }
   }
 }

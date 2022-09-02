@@ -1,5 +1,5 @@
 module "static-website-s3-cloudfront-acm" {
-  source                = "../../"
+  source  = "joshuamkite/static-website-s3-cloudfront-acm/aws"
   domain_name           = var.domain_name
   deploy_sample_content = true
   providers = {
@@ -29,11 +29,11 @@ variable "tags" {
 }
 
 terraform {
-  required_version = ">= 1.2.0"
+  required_version = ">= 1.2.8"
   required_providers {
     aws = {
       source                = "hashicorp/aws"
-      version               = ">= 4.2.0"
+      version               = ">= 4.29.0"
       configuration_aliases = [aws.us-east-1]
     }
   }

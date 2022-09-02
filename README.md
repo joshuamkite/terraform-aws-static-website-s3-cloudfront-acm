@@ -2,19 +2,25 @@
 
 This Terraform deploys resources for a public static website using AWS S3 and Cloudfront with TLS and a public DNS entry together with a suitable ACM certificate and validation. The apex domain is aliased to the www subdomain. This is a useful base from which to deploy website content with e.g. Hugo. Optionally a sample webpage with text and an image may be deployed to demonstrate that the website is working. This code presumes that a hosted zone already exists in the same account for the domain in question - this is automatically provisioned for public domain names registered via Route53 as opposed to transferred from another provider. There are a bewilderment of options available for Cloudfront and S3. It simply isn't practical to include all possible options here. The choices made are appropriate for a personal website.
 
+This module is also published to the [Terraform community module registry](https://registry.terraform.io/modules/joshuamkite/static-website-s3-cloudfront-acm/aws/latest)
+
+## Changes
+
+Release 2.0 moves from `aws_cloudfront_origin_access_identity` to `aws_cloudfront_origin_access_control` in accord with [AWS latest recommended practice](https://aws.amazon.com/blogs/networking-and-content-delivery/amazon-cloudfront-introduces-origin-access-control-oac/)
+
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.2.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.8 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.29.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.2.0 |
-| <a name="provider_aws.us-east-1"></a> [aws.us-east-1](#provider\_aws.us-east-1) | >= 4.2.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.29.0 |
+| <a name="provider_aws.us-east-1"></a> [aws.us-east-1](#provider\_aws.us-east-1) | >= 4.29.0 |
 
 ## Modules
 
@@ -27,7 +33,7 @@ No modules.
 | [aws_acm_certificate.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate) | resource |
 | [aws_acm_certificate_validation.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/acm_certificate_validation) | resource |
 | [aws_cloudfront_distribution.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_distribution) | resource |
-| [aws_cloudfront_origin_access_identity.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_origin_access_identity) | resource |
+| [aws_cloudfront_origin_access_control.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudfront_origin_access_control) | resource |
 | [aws_route53_record.domain_name](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.validation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
 | [aws_route53_record.www_domain_name](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) | resource |
