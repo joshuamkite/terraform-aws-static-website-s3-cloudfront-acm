@@ -1,12 +1,9 @@
 resource "aws_cloudfront_distribution" "this" {
   provider = aws.us-east-1
   origin {
-    domain_name = aws_s3_bucket.this.bucket_regional_domain_name
-    origin_id   = local.s3_origin_id
-
-    s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.this.cloudfront_access_identity_path
-    }
+    domain_name              = aws_s3_bucket.this.bucket_regional_domain_name
+    origin_id                = local.s3_origin_id
+    origin_access_control_id = aws_cloudfront_origin_access_control.this.id
   }
 
   aliases = [
@@ -82,13 +79,15 @@ resource "aws_cloudfront_distribution" "this" {
     # │   with module.static-website-s3-cloudfront-acm.aws_cloudfront_distribution.this,
     # │   on ../../cloudfront.tf line 1, in resource "aws_cloudfront_distribution" "this":
     # │    1: resource "aws_cloudfront_distribution" "this" {
-
     aws_acm_certificate.this,
     aws_acm_certificate_validation.this
   ]
-
 }
 
-resource "aws_cloudfront_origin_access_identity" "this" {
-  comment = "access-identity-${var.domain_name}.s3.amazonaws.com"
+resource "aws_cloudfront_origin_access_control" "this" {
+  name                              = var.domain_name
+  description                       = "${var.domain_name} OAC"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
 }

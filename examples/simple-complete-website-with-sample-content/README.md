@@ -6,8 +6,8 @@ This deploys a complete example website with sample content. Non specific-region
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.2.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.8 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.29.0 |
 
 ## Providers
 
@@ -17,7 +17,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_static-website-s3-cloudfront-acm"></a> [static-website-s3-cloudfront-acm](#module\_static-website-s3-cloudfront-acm) | ../../ | n/a |
+| <a name="module_static-website-s3-cloudfront-acm"></a> [static-website-s3-cloudfront-acm](#module\_static-website-s3-cloudfront-acm) | joshuamkite/static-website-s3-cloudfront-acm/aws | n/a |
 
 ## Resources
 
