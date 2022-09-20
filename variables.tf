@@ -43,7 +43,7 @@ variable "deploy_sample_content" {
 
 variable "cloudfront_default_root_object" {
   type        = string
-  description = "Default root object for cloudfront"
+  description = "Default root object for cloudfront. Need to also provide custom error response if changing from default"
   default     = "index.html"
 }
 
@@ -63,4 +63,28 @@ variable "s3_bucket_public_access_block" {
   type        = bool
   description = "Apply public access block to S3 bucket?"
   default     = true
+}
+
+variable "custom_error_response" {
+  type = list(object({
+    error_code            = number
+    response_code         = number
+    error_caching_min_ttl = number
+    response_page_path    = string
+  }))
+  description = "See https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/GeneratingCustomErrorResponses.html"
+  default = [
+    {
+      error_code            = 403
+      response_code         = 404
+      error_caching_min_ttl = 10
+      response_page_path    = "/index.html"
+    },
+    {
+      error_code            = 404
+      response_code         = 404
+      error_caching_min_ttl = 10
+      response_page_path    = "/index.html"
+    }
+  ]
 }

@@ -1,5 +1,5 @@
 module "static-website-s3-cloudfront-acm" {
-  source  = "joshuamkite/static-website-s3-cloudfront-acm/aws"
+  source                = "joshuamkite/static-website-s3-cloudfront-acm/aws"
   domain_name           = var.domain_name
   deploy_sample_content = true
   providers = {
@@ -66,8 +66,8 @@ output "s3_bucket_arn" {
   value = module.static-website-s3-cloudfront-acm.s3_bucket_arn
 }
 
-output "s3_bucket_name" {
-  value = module.static-website-s3-cloudfront-acm.s3_bucket_name
+output "s3_bucket_id" {
+  value = module.static-website-s3-cloudfront-acm.s3_bucket_id
 }
 
 output "acm_certificate_id" {
