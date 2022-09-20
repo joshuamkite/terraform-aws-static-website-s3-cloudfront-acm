@@ -1,5 +1,5 @@
 module "static-website-s3-cloudfront-acm" {
-  source                = "joshuamkite/static-website-s3-cloudfront-acm/aws"
+  source                = "../../"
   domain_name           = var.domain_name
   deploy_sample_content = true
   providers = {
