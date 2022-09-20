@@ -65,7 +65,7 @@ variable "s3_bucket_public_access_block" {
   default     = true
 }
 
-variable "custom_error_response" {
+variable "cloudfront_custom_error_responses" {
   type = list(object({
     error_code            = number
     response_code         = number

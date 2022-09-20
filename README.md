@@ -1,6 +1,8 @@
 # terraform-aws-static-website-s3-cloudfront-acm
 
-This Terraform deploys resources for a public static website using AWS S3 and Cloudfront with TLS and a public DNS entry together with a suitable ACM certificate and validation. The apex domain is aliased to the www subdomain. This is a useful base from which to deploy website content with e.g. Hugo. Optionally a sample webpage with text and an image may be deployed to demonstrate that the website is working. This code presumes that a hosted zone already exists in the same account for the domain in question - this is automatically provisioned for public domain names registered via Route53 as opposed to transferred from another provider. There are a bewilderment of options available for Cloudfront and S3. It simply isn't practical to include all possible options here. The choices made are appropriate for a personal website.
+This Terraform deploys resources for a public static website using AWS S3 and Cloudfront with TLS and a public DNS entry together with a suitable ACM certificate and validation. The apex domain is aliased to the www subdomain. This is a useful base from which to deploy website content with e.g. Hugo. Optionally a sample webpage with text and an image may be deployed to demonstrate that the website is working. This code presumes that a hosted zone already exists in the same account for the domain in question - this is automatically provisioned for public domain names registered via Route53 as opposed to transferred from another provider. There are a bewilderment of options available for Cloudfront and S3. It simply isn't practical to include all possible options here. The choices made are appropriate for a personal website. 
+
+By default 404 and 403 errors are redirected to `/index.html` but this is configurable and custom error responses may be specified as demonstrated in the accompanying  `examples/custom-error-response-and-bucket`
 
 This module is also published to the [Terraform community module registry](https://registry.terraform.io/modules/joshuamkite/static-website-s3-cloudfront-acm/aws/latest)
 
@@ -15,8 +17,8 @@ This module is also published to the [Terraform community module registry](https
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.29.0 |
-| <a name="provider_aws.us-east-1"></a> [aws.us-east-1](#provider\_aws.us-east-1) | >= 4.29.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.31.0 |
+| <a name="provider_aws.us-east-1"></a> [aws.us-east-1](#provider\_aws.us-east-1) | 4.31.0 |
 
 ## Modules
 
@@ -47,13 +49,13 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_cloudfront_custom_error_responses"></a> [cloudfront\_custom\_error\_responses](#input\_cloudfront\_custom\_error\_responses) | See https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/GeneratingCustomErrorResponses.html | <pre>list(object({<br>    error_code            = number<br>    response_code         = number<br>    error_caching_min_ttl = number<br>    response_page_path    = string<br>  }))</pre> | <pre>[<br>  {<br>    "error_caching_min_ttl": 10,<br>    "error_code": 403,<br>    "response_code": 404,<br>    "response_page_path": "/index.html"<br>  },<br>  {<br>    "error_caching_min_ttl": 10,<br>    "error_code": 404,<br>    "response_code": 404,<br>    "response_page_path": "/index.html"<br>  }<br>]</pre> | no |
 | <a name="input_cloudfront_default_root_object"></a> [cloudfront\_default\_root\_object](#input\_cloudfront\_default\_root\_object) | Default root object for cloudfront. Need to also provide custom error response if changing from default | `string` | `"index.html"` | no |
 | <a name="input_cloudfront_default_ttl"></a> [cloudfront\_default\_ttl](#input\_cloudfront\_default\_ttl) | The default TTL for the cloudfront cache | `number` | `86400` | no |
 | <a name="input_cloudfront_max_ttl"></a> [cloudfront\_max\_ttl](#input\_cloudfront\_max\_ttl) | The maximum TTL for the cloudfront cache | `number` | `31536000` | no |
 | <a name="input_cloudfront_min_ttl"></a> [cloudfront\_min\_ttl](#input\_cloudfront\_min\_ttl) | The minimum TTL for the cloudfront cache | `number` | `0` | no |
 | <a name="input_cloudfront_minimum_protocol_version"></a> [cloudfront\_minimum\_protocol\_version](#input\_cloudfront\_minimum\_protocol\_version) | The minimum version of the SSL protocol that you want CloudFront to use for HTTPS connections. | `string` | `"TLSv1.2_2019"` | no |
 | <a name="input_cloudfront_price_class"></a> [cloudfront\_price\_class](#input\_cloudfront\_price\_class) | CloudFront distribution price class | `string` | `"PriceClass_100"` | no |
-| <a name="input_custom_error_response"></a> [custom\_error\_response](#input\_custom\_error\_response) | See https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/GeneratingCustomErrorResponses.html | <pre>list(object({<br>    error_code            = number<br>    response_code         = number<br>    error_caching_min_ttl = number<br>    response_page_path    = string<br>  }))</pre> | <pre>[<br>  {<br>    "error_caching_min_ttl": 10,<br>    "error_code": 403,<br>    "response_code": 404,<br>    "response_page_path": "/index.html"<br>  },<br>  {<br>    "error_caching_min_ttl": 10,<br>    "error_code": 404,<br>    "response_code": 404,<br>    "response_page_path": "/index.html"<br>  }<br>]</pre> | no |
 | <a name="input_deploy_sample_content"></a> [deploy\_sample\_content](#input\_deploy\_sample\_content) | Deploy sample content to show website working? | `bool` | `false` | no |
 | <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | Domain name for website, used for all resources | `string` | n/a | yes |
 | <a name="input_s3_bucket_custom_name"></a> [s3\_bucket\_custom\_name](#input\_s3\_bucket\_custom\_name) | Any non-empty string here will replace default name of bucket `var.domain_name` | `string` | `""` | no |

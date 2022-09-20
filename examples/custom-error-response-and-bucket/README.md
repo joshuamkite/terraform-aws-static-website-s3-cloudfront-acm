@@ -17,7 +17,7 @@ A custom 404 error page linking back to the domain homepage is created outboard 
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.29.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.31.0 |
 
 ## Modules
 
@@ -36,7 +36,7 @@ A custom 404 error page linking back to the domain homepage is created outboard 
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_custom_error_response"></a> [custom\_error\_response](#input\_custom\_error\_response) | n/a | `list(any)` | <pre>[<br>  {<br>    "error_caching_min_ttl": 10,<br>    "error_code": 403,<br>    "response_code": 404,<br>    "response_page_path": "/404.html"<br>  },<br>  {<br>    "error_caching_min_ttl": 10,<br>    "error_code": 404,<br>    "response_code": 404,<br>    "response_page_path": "/404.html"<br>  }<br>]</pre> | no |
+| <a name="input_cloudfront_custom_error_responses"></a> [cloudfront\_custom\_error\_responses](#input\_cloudfront\_custom\_error\_responses) | n/a | `list(any)` | <pre>[<br>  {<br>    "error_caching_min_ttl": 10,<br>    "error_code": 403,<br>    "response_code": 404,<br>    "response_page_path": "/404.html"<br>  },<br>  {<br>    "error_caching_min_ttl": 10,<br>    "error_code": 404,<br>    "response_code": 404,<br>    "response_page_path": "/404.html"<br>  }<br>]</pre> | no |
 | <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | Domain name for website, used for all resources | `string` | n/a | yes |
 | <a name="input_region"></a> [region](#input\_region) | Region for our region-optional resources | `string` | `"eu-west-1"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Provider default tags, applied to all resources | `map(string)` | <pre>{<br>  "managed_by_terraform": true,<br>  "terraform_module": "joshuamkite/static-website-s3-cloudfront-acm/aws"<br>}</pre> | no |
