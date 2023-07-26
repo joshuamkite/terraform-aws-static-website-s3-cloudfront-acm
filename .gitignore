@@ -3,3 +3,5 @@ backend.tf
 terraform.tfstate
 terraform.tfstate.backup
 terraform.tfstate*
+examples/custom-error-response-and-bucket/.terraform.lock.hcl
+examples/custom-error-response-and-bucket/.pluralith/
