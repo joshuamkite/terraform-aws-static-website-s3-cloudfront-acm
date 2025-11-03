@@ -11,7 +11,7 @@ resource "aws_acm_certificate" "this" {
 }
 
 data "aws_route53_zone" "this" {
-  name         = var.domain_name
+  name         = var.parent_zone_name != "" ? var.parent_zone_name : var.domain_name
   private_zone = false
 }
 

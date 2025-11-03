@@ -3,6 +3,12 @@ variable "domain_name" {
   description = "Domain name for website, used for all resources"
 }
 
+variable "parent_zone_name" {
+  type        = string
+  description = "Parent hosted zone name (for subdomains). If not set, uses domain_name"
+  default     = ""
+}
+
 variable "cloudfront_price_class" {
   type        = string
   default     = "PriceClass_100" # Only US,Canada,Europe
